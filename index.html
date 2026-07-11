@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Examination Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .palette-panel {
+            background: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+        .palette-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: #5f6368;
+            text-align: center;
+        }
+        .palette-grid {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .palette-btn {
+            background-color: #e8eaed;
+            color: #3c4043;
+            border: 1px solid #dadce0;
+            width: 40px;
+            height: 40px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .palette-btn:hover {
+            background-color: #dadce0;
+        }
+        .palette-btn.active {
+            background-color: #1a73e8 !important;
+            color: white !important;
+            border-color: #1a73e8;
+        }
+        .palette-btn.answered {
+            background-color: #137333 !important;
+            color: white !important;
+            border-color: #137333;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .nav-buttons button {
+            width: auto;
+            flex: 1;
+            margin-top: 0;
+        }
+        .secondary-btn {
+            background-color: #5f6368 !important;
+        }
+        .secondary-btn:hover {
+            background-color: #45474a !important;
+        }
+        .submit-btn {
+            background-color: #137333 !important;
+        }
+        .submit-btn:hover {
+            background-color: #0b5121 !important;
+        }
+        .progress-bar {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="max-width: 650px;">
+    
+    <div id="loginView">
+        <h2>Student Examination Portal</h2>
+        <p style="color: #666;">Please sign in to begin your evaluation.</p>
+        <hr>
+        <div class="input-group">
+            <label>Student Name:</label>
+            <input type="text" id="studentName" placeholder="e.g. Alex Mercer">
+        </div>
+        <div class="input-group">
+            <label>Student ID / Roll No:</label>
+            <input type="text" id="studentId" placeholder="e.g. STU001">
+        </div>
+        <button type="button" id="loginBtn" onclick="startExamSession()">Enter Examination Room</button>
+    </div>
+
+    <div id="examView" style="display: none;">
+        <h2>Java Basics Terminal Examination</h2>
+        <div class="student-bar">
+            <span>Student: <b id="displayStudent"></b></span> | 
+            <span>ID: <b id="displayId"></b></span>
+        </div>
+        <div class="timer-box">Time Remaining: <span id="clock">03:00:00</span></div>
+        
+        <div class="palette-panel">
+            <div class="palette-title">Question Grid Map</div>
+            <div class="palette-grid">
+                <button type="button" class="palette-btn active" id="pBtn1" onclick="jumpToQuestion(1)">1</button>
+                <button type="button" class="palette-btn" id="pBtn2" onclick="jumpToQuestion(2)">2</button>
+                <button type="button" class="palette-btn" id="pBtn3" onclick="jumpToQuestion(3)">3</button>
+                <button type="button" class="palette-btn" id="pBtn4" onclick="jumpToQuestion(4)">4</button>
+                <button type="button" class="palette-btn" id="pBtn5" onclick="jumpToQuestion(5)">5</button>
+                <button type="button" class="palette-btn" id="pBtn6" onclick="jumpToQuestion(6)">6</button>
+                <button type="button" class="palette-btn" id="pBtn7" onclick="jumpToQuestion(7)">7</button>
+                <button type="button" class="palette-btn" id="pBtn8" onclick="jumpToQuestion(8)">8</button>
+                <button type="button" class="palette-btn" id="pBtn9" onclick="jumpToQuestion(9)">9</button>
+                <button type="button" class="palette-btn" id="pBtn10" onclick="jumpToQuestion(10)">10</button>
+            </div>
+        </div>
+
+        <div class="progress-bar">Question <span id="currentNum">1</span> of 10</div>
+
+        <form id="quizForm" onchange="updatePaletteColors()">
+            <div class="question-page" id="qPage1">
+                <div class="question">
+                    <p><b>Q1: What is the size of an int primitive in Java?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="A"> A) 2 bytes</label>
+                        <label><input type="radio" name="q1" value="B"> B) 4 bytes</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question-page" id="qPage2" style="display:none;">
+                <div class="question">
+                    <p><b>Q2: Which keyword is used for inheritance in Java?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="A"> A) extends</label>
+                        <label><input type="radio" name="q2" value="B"> B) imports</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-page" id="qPage3" style="display:none;">
+                <div class="question">
+                    <p><b>Q3: Which component executes Java bytecode?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="A"> A) JVM</label>
+                        <label><input type="radio" name="q3" value="B"> B) JDK</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-page" id="qPage4" style="display:none;">
+                <div class="question">
+                    <p><b>Q4: Is 'String' a primitive data type in Java?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="A"> A) Yes</label>
+                        <label><input type="radio" name="q4" value="B"> B) No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-page" id="qPage5" style="display:none;">
+                <div class="question">
+                    <p><b>Q5: Default value of a boolean primitive variable?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="A"> A) true</label>
+                        <label><input type="radio" name="q5" value="B"> B) false</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-page" id="qPage6" style="display:none;">
+                <div class="question">
+                    <p><b>Q6: Which keyword prevents a class from being inherited?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="A"> A) final</label>
+                        <label><input type="radio" name="q6" value="B"> B) static</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-page" id="qPage7" style="display:none;">
+                <div class="question">
+                    <p><b>Q7: Which dynamic collection allows duplicate elements?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="A"> A) List</label>
+                        <label><input type="radio" name="q7" value="B"> B) Set</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-page" id="qPage8" style="display:none;">
+                <div class="question">
+                    <p><b>Q8: Can an abstract class instantiate objects natively?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="A"> A) Yes</label>
+                        <label><input type="radio" name="q8" value="B"> B) No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-page" id="qPage9" style="display:none;">
+                <div class="question">
+                    <p><b>Q9: Which package is imported by default in all Java files?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="A"> A) java.util</label>
+                        <label><input type="radio" name="q9" value="B"> B) java.lang</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-page" id="qPage10" style="display:none;">
+                <div class="question">
+                    <p><b>Q10: Does Java support direct multiple class inheritance?</b></p>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="A"> A) Yes</label>
+                        <label><input type="radio" name="q10" value="B"> B) No</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button type="button" id="prevBtn" class="secondary-btn" onclick="changeQuestion(-1)" disabled>Previous</button>
+                <button type="button" id="nextBtn" onclick="changeQuestion(1)">Next</button>
+                <button type="button" id="submitBtn" class="submit-btn" onclick="sendToJavaServer()" style="display: none;">Submit Exam</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="scorecardView" style="display: none; text-align: center;">
+        <div class="scorecard-header">
+            <h3>OFFICIAL EXAMINATION REPORT CARD</h3>
+        </div>
+        <div class="scorecard-body">
+            <p><b>Student Name:</b> <span id="cardName"></span></p>
+            <p><b>Student ID:</b> <span id="cardId"></span></p>
+            <hr>
+            <div id="serverFeedback" class="score-display">Waiting for server validation...</div>
+        </div>
+        <p style="font-size: 0.9rem; color: #666; margin-top: 20px;">This result was generated securely by the core Java OOP Engine.</p>
+    </div>
+</div>
+
+<script>
+    let remainingTime = 10800; // 3 hours
+    let intervalTracker;
+    let currentQuestion = 1;
+    const totalQuestions = 10;
+    let storedStudentId = "";
+
+    function startExamSession() {
+        const name = document.getElementById('studentName').value.trim();
+        const id = document.getElementById('studentId').value.trim();
+
+        if (name === "" || id === "") {
+            alert("Please fill fields.");
+            return;
+        }
+
+        document.getElementById('loginBtn').disabled = true;
+
+        // Perform Server-Side Auth Check
+        fetch('http://localhost:8080/login', {
+            method: 'POST',
+            body: `${id},${name}`
+        })
+        .then(res => res.text())
+        .then(status => {
+            if (status === "SUCCESS") {
+                storedStudentId = id; // Lock ID session scope
+                document.getElementById('displayStudent').innerText = name;
+                document.getElementById('displayId').innerText = id;
+                document.getElementById('cardName').innerText = name;
+                document.getElementById('cardId').innerText = id;
+
+                document.getElementById('loginView').style.display = 'none';
+                document.getElementById('examView').style.display = 'block';
+
+                startClock();
+            } else {
+                alert("ACCESS DENIED: Credentials not registered on the Java Server.");
+                document.getElementById('loginBtn').disabled = false;
+            }
+        })
+        .catch(err => {
+            alert("Error checking backend server. Is the Java application running?");
+            document.getElementById('loginBtn').disabled = false;
+        });
+    }
+
+    function startClock() {
+        const clockDisplay = document.getElementById('clock');
+        intervalTracker = setInterval(() => {
+            remainingTime--;
+            
+            let hrs = Math.floor(remainingTime / 3600);
+            let mins = Math.floor((remainingTime % 3600) / 60);
+            let secs = remainingTime % 60;
+
+            clockDisplay.textContent = 
+                `${hrs < 10 ? '0'+hrs : hrs}:${mins < 10 ? '0'+mins : mins}:${secs < 10 ? '0'+secs : secs}`;
+            
+            if (remainingTime <= 0) {
+                clearInterval(intervalTracker);
+                sendToJavaServer(); 
+            }
+        }, 1000);
+    }
+
+    function jumpToQuestion(targetIndex) {
+        document.getElementById(`qPage${currentQuestion}`).style.display = 'none';
+        currentQuestion = targetIndex;
+        document.getElementById(`qPage${currentQuestion}`).style.display = 'block';
+        document.getElementById('currentNum').innerText = currentQuestion;
+        updateButtonsAndPalette();
+    }
+
+    function changeQuestion(direction) {
+        document.getElementById(`qPage${currentQuestion}`).style.display = 'none';
+        currentQuestion += direction;
+        document.getElementById(`qPage${currentQuestion}`).style.display = 'block';
+        document.getElementById('currentNum').innerText = currentQuestion;
+        updateButtonsAndPalette();
+    }
+
+    function updateButtonsAndPalette() {
+        document.getElementById('prevBtn').disabled = (currentQuestion === 1);
+        
+        if (currentQuestion === totalQuestions) {
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'block';
+        } else {
+            document.getElementById('nextBtn').style.display = 'block';
+            document.getElementById('submitBtn').style.display = 'none';
+        }
+
+        updatePaletteColors();
+    }
+
+    function updatePaletteColors() {
+        const testForm = document.getElementById('quizForm');
+        for (let i = 1; i <= totalQuestions; i++) {
+            const paletteBtn = document.getElementById(`pBtn${i}`);
+            const isSelected = testForm.elements['q' + i].value !== "";
+            
+            paletteBtn.classList.remove('active', 'answered');
+
+            if (i === currentQuestion) {
+                paletteBtn.classList.add('active');
+            } else if (isSelected) {
+                paletteBtn.classList.add('answered');
+            }
+        }
+    }
+
+    function sendToJavaServer() {
+        clearInterval(intervalTracker);
+        document.getElementById('submitBtn').disabled = true;
+        
+        const testForm = document.getElementById('quizForm');
+        let answers = [];
+        for(let i = 1; i <= 10; i++) {
+            answers.push(testForm.elements['q' + i].value || 'S');
+        }
+        const rawPayload = answers.join(',');
+
+        document.getElementById('examView').style.display = 'none';
+        document.getElementById('scorecardView').style.display = 'block';
+
+        fetch('http://localhost:8080/submit', {
+            method: 'POST',
+            headers: {
+                'X-Student-ID': storedStudentId // Secure verification tag
+            },
+            body: rawPayload
+        })
+        .then(res => res.text())
+        .then(serverMessage => {
+            document.getElementById('serverFeedback').innerText = serverMessage;
+        })
+        .catch(error => {
+            document.getElementById('serverFeedback').innerHTML = "<span style='color: red;'>Error communicating with backend.</span>";
+        });
+    }
+</script>
+
+</body>
+</html>

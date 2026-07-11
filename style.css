@@ -1,0 +1,118 @@
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 40px; 
+    background-color: #f0f2f5; 
+    color: #333; 
+}
+
+.container { 
+    background: #ffffff; 
+    padding: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+    max-width: 600px; 
+    margin: auto; 
+}
+
+h2 { 
+    color: #1a73e8; 
+    margin-top: 0; 
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.student-bar {
+    background: #e8f0fe;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.timer-box { 
+    font-size: 1.25rem; 
+    font-weight: bold; 
+    color: #d93025; 
+    background: #fce8e6; 
+    padding: 10px; 
+    border-radius: 6px; 
+    display: inline-block; 
+    margin-bottom: 20px; 
+}
+
+.question { 
+    margin-bottom: 25px; 
+    padding: 15px; 
+    background: #f8f9fa; 
+    border-left: 5px solid #1a73e8; 
+    border-radius: 4px; 
+}
+
+.options label { 
+    display: block; 
+    margin: 8px 0; 
+    cursor: pointer; 
+}
+
+button { 
+    background: #1a73e8; 
+    color: white; 
+    border: none; 
+    padding: 12px 24px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    cursor: pointer; 
+    border-radius: 6px; 
+    transition: background 0.2s; 
+    width: 100%; 
+    margin-top: 10px; 
+}
+
+button:hover { 
+    background: #1557b0; 
+}
+
+/* Scorecard Formatting */
+.scorecard-header {
+    background: #1a73e8;
+    color: white;
+    padding: 10px;
+    border-radius: 6px 6px 0 0;
+    margin-bottom: 0;
+}
+
+.scorecard-body {
+    border: 2px solid #1a73e8;
+    border-top: none;
+    padding: 20px;
+    border-radius: 0 0 6px 6px;
+    background: #fafafa;
+    font-size: 1.1rem;
+}
+
+.score-display {
+    font-size: 1.3rem;
+    color: #137333;
+    background: #e6f4ea;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-weight: bold;
+}
