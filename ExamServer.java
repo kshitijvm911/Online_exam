@@ -113,7 +113,7 @@ public class ExamServer {
 
         Exam javaExam = new Exam(2.0, 10800); 
         
-        javaExam.addQuestion(new NegativeMarkedQuestion("Size of int primitive in Java? (A: 2 bytes, B: 4 bytes)", 'B', 1.0));
+        javaExam.addQuestion(new NegativeMarkedQuestion("is devakiran kundan? (A: yes, B: no)", 'B', 1.0));
         javaExam.addQuestion(new NegativeMarkedQuestion("Inheritance keyword? (A: extends, B: imports)", 'A', 1.0));
         javaExam.addQuestion(new NegativeMarkedQuestion("Which component executes Java bytecode? (A: JVM, B: JDK)", 'A', 1.0));
         javaExam.addQuestion(new NegativeMarkedQuestion("Is 'String' a primitive data type in Java? (A: Yes, B: No)", 'B', 1.0));
