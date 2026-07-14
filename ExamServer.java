@@ -132,6 +132,14 @@ public class ExamServer {
             @Override
             public void handle(HttpExchange exchange) throws IOException {
                 exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "POST, OPTIONS");
+                
+                // Handle the preflight OPTIONS request
+                if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                    exchange.sendResponseHeaders(204, -1);
+                    exchange.close();
+                    return;
+                }
                 
                 if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
                     Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -164,6 +172,16 @@ public class ExamServer {
             @Override
             public void handle(HttpExchange exchange) throws IOException {
                 exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "POST, OPTIONS");
+                // Whitelist the custom header used by the frontend
+                exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "X-Student-ID"); 
+                
+                // Handle the preflight OPTIONS request
+                if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                    exchange.sendResponseHeaders(204, -1);
+                    exchange.close();
+                    return;
+                }
                 
                 if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
                     long currentTime = System.currentTimeMillis();
