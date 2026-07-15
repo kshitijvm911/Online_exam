@@ -107,7 +107,7 @@ public class ExamServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         
         // Populating our authorized student roster
-        studentDatabase.put("STU001", "kshitij ");
+        studentDatabase.put("STU001", "kshitij");
         studentDatabase.put("STU002", "ashin");
         studentDatabase.put("STU003", "John Smith");
 
