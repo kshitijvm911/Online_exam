@@ -109,7 +109,8 @@ public class ExamServer {
         // Populating our authorized student roster
         studentDatabase.put("STU001", "kshitij");
         studentDatabase.put("STU002", "ashin");
-        studentDatabase.put("STU003", "John Smith");
+        studentDatabase.put("STU003", "shaza");
+        studentDatabase.put("STU004", "avani");
 
         Exam javaExam = new Exam(2.0, 10800); 
         
@@ -155,6 +156,7 @@ public class ExamServer {
                         String inputName = credentials[1].trim();
 
                         if (studentDatabase.containsKey(inputId) && studentDatabase.get(inputId).equalsIgnoreCase(inputName)) {
+                            // Convert database checks to ignore case variations completely
                             response = "SUCCESS";
                         }
                     }
