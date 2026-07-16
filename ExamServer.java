@@ -112,7 +112,7 @@ public class ExamServer {
         studentDatabase.put("STU003", "shaza");
         studentDatabase.put("STU004", "avani");
 
-        Exam javaExam = new Exam(2.0, 10800); 
+        Exam javaExam = new Exam(2.0, 180); 
         
         javaExam.addQuestion(new NegativeMarkedQuestion("What is the size of primitive int data type in java? (A: 2 byte, B: 4 byte)", 'B', 1.0));
         javaExam.addQuestion(new NegativeMarkedQuestion("Inheritance keyword? (A: extends, B: imports)", 'A', 1.0));
